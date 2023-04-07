@@ -110,34 +110,55 @@ class _Home_Page_aState extends State<Home_Page_a> {
         builder: (BuildContext ctx) {
           return Padding(
             padding: EdgeInsets.only(
-                top: 20,
+                top: 70,
                 left: 20,
                 right: 20,
                 bottom: MediaQuery.of(context).viewInsets.bottom + 20),
             child: Column(
               children: [
-                TextField(
-                  controller: title,
-                  decoration: InputDecoration(labelText: 'title'),
+                MyTextField(
+                  controller: title, hintText: 'title', obscureText: false,
                 ),
-                TextField(
-                  controller: description,
-                  decoration: InputDecoration(labelText: 'description'),
+                SizedBox(height: 20,),
+                MyTextField(
+                  controller: description, hintText: 'description', obscureText: false,
                 ),
-                ElevatedButton(
-                    onPressed: () async {
-                      await _reference.doc(documentSnapshot!.id).update({
-                        'title': title.text,
-                        'description': description.text
-                      });
-                      title.clear();
-                      description.clear();
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (Buildcontext) => Home_Page_a()));
-                    },
-                    child: Text("Update"))
+                SizedBox(height: 20,),
+                GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    padding: const EdgeInsets.all(25),
+                    margin: const EdgeInsets.symmetric(horizontal: 25),
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey.shade600,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Update",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // ElevatedButton(
+                //     onPressed: () async {
+                //       await _reference.doc(documentSnapshot!.id).update({
+                //         'title': title.text,
+                //         'description': description.text
+                //       });
+                //       title.clear();
+                //       description.clear();
+                //       Navigator.pushReplacement(
+                //           context,
+                //           MaterialPageRoute(
+                //               builder: (Buildcontext) => Home_Page_a()));
+                //     },
+                //     child: Text("Update"))
               ],
             ),
           );
