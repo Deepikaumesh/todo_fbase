@@ -181,31 +181,34 @@ class _Home_Page_aState extends State<Home_Page_a> {
                   final DocumentSnapshot documentSnapshot =
                   streamSnapshot.data!.docs[index];
                   return
-                      Card(
-                      margin: EdgeInsets.all(10),
-                      child: ListTile(
-                        title: Text(documentSnapshot['title']),
-                        subtitle: Text(documentSnapshot['description'].toString()),
-                        trailing: SizedBox(
-                          width: 100,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    _Update(documentSnapshot);
-                                  },
-                                  icon: Icon(Icons.edit)),
-                              IconButton(
-                                  onPressed: () {
-                                    Delete(documentSnapshot.id);
-                                  },
-                                  icon: Icon(Icons.delete)),
-                            ],
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Card(
+                        margin: EdgeInsets.all(10),
+                        child: ListTile(
+                          title: Text(documentSnapshot['title']),
+                          subtitle: Text(documentSnapshot['description'].toString()),
+                          trailing: SizedBox(
+                            width: 100,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      _Update(documentSnapshot);
+                                    },
+                                    icon: Icon(Icons.edit)),
+                                IconButton(
+                                    onPressed: () {
+                                      Delete(documentSnapshot.id);
+                                    },
+                                    icon: Icon(Icons.delete)),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
 
-                  );
+                  ),
+                      );
                 });
 
             }

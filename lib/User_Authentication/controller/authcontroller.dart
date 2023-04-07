@@ -99,9 +99,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_firebase/pages/login_page.dart';
 
 import '../Home_Page_AA.dart';
-import '../SignIn_Page.dart';
 import '../model/user_model.dart';
 
 
@@ -192,7 +192,7 @@ class _AuthcontrollerState extends State<Authcontroller> {
         content: Text("Email send successfully"),
 
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> Sign_In_page()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
       loading = false;
     } catch (e) {
       SnackBar(
