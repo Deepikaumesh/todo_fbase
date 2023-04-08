@@ -43,6 +43,9 @@ dependencies:
   path_provider: ^2.0.14
  # get: ^4.6.5
   introduction_screen: ^3.1.7
+  url_launcher: ^6.1.10
+  open_mail_app: ^0.4.5
+  flutter_appavailability: ^0.0.21
 
 dev_dependencies:
   flutter_test:

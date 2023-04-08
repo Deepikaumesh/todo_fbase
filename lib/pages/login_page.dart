@@ -143,8 +143,10 @@ class _LoginPageState extends State<LoginPage> {
       await auth.signInWithEmailAndPassword(
           email: loginemail.text, password: loginpassword.text);
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Home_Page_a()));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (Buildcontext) => Home_Page_a()));
     } catch (e) {
       final snackBar = SnackBar(
         content: const Text("Error"),

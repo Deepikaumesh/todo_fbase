@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_firebase/components/my_button.dart';
 import 'package:todo_firebase/pages/login_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../components/my_textfield.dart';
+import '../pages/Add_Data.dart';
+import 'dart:io';
+import 'package:flutter_appavailability/flutter_appavailability.dart';
 
 class Home_Page_a extends StatefulWidget {
   const Home_Page_a({Key? key}) : super(key: key);
@@ -33,148 +36,22 @@ class _Home_Page_aState extends State<Home_Page_a> {
     await _reference.doc(id).delete();
   }
 
-  Future<void> Create([DocumentSnapshot? documentSnapshot]) async {
-    if (documentSnapshot != null) {
-      title.text = documentSnapshot['title'];
-      description.text = documentSnapshot['description'].toString();
-    }
-    await showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 70,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 20),
-            child: Column(
-              children: [
-                MyTextField(
-                  controller: title, hintText: 'title', obscureText: false,
-                 // decoration: InputDecoration(labelText: 'title'),
-                ),
-                SizedBox(height: 20,),
-                MyTextField(
-                  controller: description,
-                  hintText: 'description', obscureText: false,
-                ),
-              SizedBox(height: 20,),
-              GestureDetector(
-                onTap: (){},
-                child: Container(
-                  padding: const EdgeInsets.all(25),
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade600,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Add",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-                // ElevatedButton(
-                //     onPressed: () async {
-                //       await _reference.add({
-                //         'title': title.text,
-                //         'description': description.text
-                //       });
-                //       Navigator.pushReplacement(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (Buildcontext) => Home_Page_a()));
-                //     },
-                //     child: Text("Create"))
-              ],
-            ),
-          );
-        });
-  }
-
-  Future<void> _Update([DocumentSnapshot? documentSnapshot]) async {
-    if (documentSnapshot != null) {
-      title.text = documentSnapshot['title'];
-      description.text = documentSnapshot['description'].toString();
-    }
-    await showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext ctx) {
-          return Padding(
-            padding: EdgeInsets.only(
-                top: 70,
-                left: 20,
-                right: 20,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 20),
-            child: Column(
-              children: [
-                MyTextField(
-                  controller: title, hintText: 'title', obscureText: false,
-                ),
-                SizedBox(height: 20,),
-                MyTextField(
-                  controller: description, hintText: 'description', obscureText: false,
-                ),
-                SizedBox(height: 20,),
-                GestureDetector(
-                  onTap: (){},
-                  child: Container(
-                    padding: const EdgeInsets.all(25),
-                    margin: const EdgeInsets.symmetric(horizontal: 25),
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey.shade600,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Update",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                // ElevatedButton(
-                //     onPressed: () async {
-                //       await _reference.doc(documentSnapshot!.id).update({
-                //         'title': title.text,
-                //         'description': description.text
-                //       });
-                //       title.clear();
-                //       description.clear();
-                //       Navigator.pushReplacement(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (Buildcontext) => Home_Page_a()));
-                //     },
-                //     child: Text("Update"))
-              ],
-            ),
-          );
-        });
-  }
-
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueGrey,
-        onPressed: () => Create(),
-        child: Icon(Icons.add),
-      ),
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blueGrey,
+          onPressed: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (Buildcontext) => Add_Data()));
+          }
+
+          //Create(),
+
+          ),
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         toolbarHeight: 100,
@@ -200,7 +77,36 @@ class _Home_Page_aState extends State<Home_Page_a> {
                     ? SizedBox(
                         height: 1,
                       )
-                    : TextButton(onPressed: () {}, child: Text("verify")),
+                    : TextButton(
+                        onPressed: () {
+                          openEmailApp(context);
+
+                          final snackBar = SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            margin: EdgeInsets.only(
+                              top: 40,
+                                bottom: MediaQuery.of(context).size.height - 400,
+                                right: 40,
+                                left: 40),
+
+                              duration: const Duration(minutes: 1),
+                            content: const Text("Please Relogin to continue"),
+                            action: SnackBarAction(
+                              label: 'Ok',
+                              onPressed: () {
+                                // Some code to undo the change.
+                              },
+                            ),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                        },
+                        child: Text("verify"),
+                      ),
               ],
             ),
           ],
@@ -267,5 +173,107 @@ class _Home_Page_aState extends State<Home_Page_a> {
             );
           }),
     );
+  }
+
+  Future<void> _Update([DocumentSnapshot? documentSnapshot]) async {
+    if (documentSnapshot != null) {
+      title.text = documentSnapshot['title'];
+      description.text = documentSnapshot['description'].toString();
+    }
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext ctx) {
+          return Padding(
+            padding: EdgeInsets.only(
+                top: 300,
+                left: 20,
+                right: 20,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 20),
+            child: Column(
+              children: [
+                MyTextField(
+                  controller: title,
+                  hintText: 'title',
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                MyTextField(
+                  controller: description,
+                  hintText: 'description',
+                  obscureText: false,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    await _reference.doc(documentSnapshot!.id).update(
+                        {'title': title.text, 'description': description.text});
+                    title.clear();
+                    description.clear();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (Buildcontext) => Home_Page_a()));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(25),
+                    margin: const EdgeInsets.symmetric(horizontal: 25),
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey.shade600,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "Update",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void openEmailApp(BuildContext context){
+    try{
+      AppAvailability.launchApp(Platform.isIOS ? "message://" :         "com.google.android.gm").then((_) {
+        print("App Email launched!");
+      }).catchError((err) {
+        final snackBar = SnackBar(
+          content: const Text("Error"),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print(err);
+      });
+    } catch(e) {
+      final snackBar = SnackBar(
+        content: const Text("Error"),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
