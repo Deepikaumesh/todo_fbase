@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController loginemail = TextEditingController();
   TextEditingController loginpassword = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
               // sign in button
               MyButton(onTap: () {
                 SignIN();
+
               }),
 
               const SizedBox(height: 50),
@@ -142,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await auth.signInWithEmailAndPassword(
           email: loginemail.text, password: loginpassword.text);
+
 
       Navigator.pushReplacement(
           context,

@@ -105,7 +105,7 @@ class _Home_Page_aState extends State<Home_Page_a> {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                         },
-                        child: Text("verify"),
+                        child: Text("verify now!"),
                       ),
               ],
             ),

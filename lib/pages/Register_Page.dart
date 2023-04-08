@@ -16,6 +16,8 @@ class Register_Page extends StatefulWidget {
 }
 
 class _Register_PageState extends State<Register_Page> {
+
+
   FirebaseAuth auth = FirebaseAuth.instance;
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -31,6 +33,8 @@ class _Register_PageState extends State<Register_Page> {
   TextEditingController loginpassword = TextEditingController();
 
   TextEditingController resetemail = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +97,8 @@ class _Register_PageState extends State<Register_Page> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
-                    child: Text(
+                    child:
+                    Text(
                             "Sign Up",
                             style: TextStyle(
                               color: Colors.white,
@@ -101,6 +106,9 @@ class _Register_PageState extends State<Register_Page> {
                               fontSize: 16,
                             ),
                           ),
+
+
+
                   ),
                 ),
               ),
@@ -140,6 +148,7 @@ class _Register_PageState extends State<Register_Page> {
   }
 
   signUp() async {
+
     try {
       await auth.createUserWithEmailAndPassword(
           email: email.text, password: password.text);
@@ -148,6 +157,7 @@ class _Register_PageState extends State<Register_Page> {
           context, MaterialPageRoute(builder: (context) => Home_Page_a()));
 
       await verifyEmail();
+      
     } catch (e) {
       final snackBar = SnackBar(
         content: Text("Error$e"),

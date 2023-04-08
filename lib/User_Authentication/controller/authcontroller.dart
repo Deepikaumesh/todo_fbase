@@ -176,7 +176,8 @@ class _AuthcontrollerState extends State<Authcontroller> {
   }
 
   verifyEmail() async {
-    await auth.currentUser?.sendEmailVerification();
+    await auth.currentUser?.sendEmailVerification(
+    );
     SnackBar(
       content: Text("Email$e"),
 
