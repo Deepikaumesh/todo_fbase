@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_firebase/pages/login_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../components/my_textfield.dart';
-import '../pages/Add_Data.dart';
+import '../main.dart';
+import '../main.dart';
+import 'Add_Data.dart';
 import 'dart:io';
 import 'package:flutter_appavailability/flutter_appavailability.dart';
 
@@ -67,6 +71,7 @@ class _Home_Page_aState extends State<Home_Page_a> {
             ),
             Row(
               children: [
+
                 Text(
                     auth.currentUser!.emailVerified
                         ? "Email verified"
@@ -87,12 +92,12 @@ class _Home_Page_aState extends State<Home_Page_a> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             margin: EdgeInsets.only(
-                              top: 40,
-                                bottom: MediaQuery.of(context).size.height - 400,
+                                top: 40,
+                                bottom:
+                                    MediaQuery.of(context).size.height - 400,
                                 right: 40,
                                 left: 40),
-
-                              duration: const Duration(minutes: 1),
+                            duration: const Duration(minutes: 1),
                             content: const Text("Please Relogin to continue"),
                             action: SnackBarAction(
                               label: 'Ok',
@@ -103,12 +108,13 @@ class _Home_Page_aState extends State<Home_Page_a> {
                           );
 
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
                         },
                         child: Text("verify now!"),
                       ),
               ],
             ),
+            // Text("mobile",style: TextStyle(fontSize: 12),),
+
           ],
         ),
         actions: [
@@ -244,9 +250,11 @@ class _Home_Page_aState extends State<Home_Page_a> {
         });
   }
 
-  void openEmailApp(BuildContext context){
-    try{
-      AppAvailability.launchApp(Platform.isIOS ? "message://" :         "com.google.android.gm").then((_) {
+  void openEmailApp(BuildContext context) {
+    try {
+      AppAvailability.launchApp(
+              Platform.isIOS ? "message://" : "com.google.android.gm")
+          .then((_) {
         print("App Email launched!");
       }).catchError((err) {
         final snackBar = SnackBar(
@@ -262,7 +270,7 @@ class _Home_Page_aState extends State<Home_Page_a> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         print(err);
       });
-    } catch(e) {
+    } catch (e) {
       final snackBar = SnackBar(
         content: const Text("Error"),
         action: SnackBarAction(

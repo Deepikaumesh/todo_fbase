@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:todo_firebase/pages/login_page.dart';
 
-import 'User_Authentication/Home_Page_AA.dart';
-
-
+import 'pages/Home_Page_AA.dart';
+import 'forth_otp/home.dart';
+import 'forth_otp/phone.dart';
+import 'forth_otp/verify.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Intro(),
+      initialRoute: 'Intro',
+      routes: {
+        'phone': (context) => MyPhone(),
+        'verify': (context) => MyVerify(),
+        'home': (context) => home(),
+        'Intro': (context) => Intro(),
+      },
+      //   home: Intro(),
     );
   }
 }
@@ -39,6 +47,7 @@ class Intro extends StatefulWidget {
 class _IntroState extends State<Intro> {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
+  var code = "";
 
   void initState() {
     // // TODO: implement initState
@@ -57,14 +66,16 @@ class _IntroState extends State<Intro> {
       showDoneButton: true,
       showBottomPart: true,
       done: Text("Done"),
+
       onDone: () {
         user != null
             ? Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Home_Page_a()))
-            : Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginPage()));
+            : Navigator.push(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
       next: Icon(Icons.arrow_forward),
+
       pages: [
         PageViewModel(
             image: Image.asset("assets/images/1.jpg"),

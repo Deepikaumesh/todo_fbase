@@ -45,7 +45,10 @@ dependencies:
   introduction_screen: ^3.1.7
   url_launcher: ^6.1.10
   open_mail_app: ^0.4.5
-  flutter_appavailability: ^0.0.21
+  flutter_appavailability:
+  google_sign_in: ^6.1.0
+  pinput: ^2.2.11
+  intl_phone_field: ^3.1.0
 
 dev_dependencies:
   flutter_test:

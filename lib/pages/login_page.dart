@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../User_Authentication/Forgot_Password_Page.dart';
-import '../User_Authentication/Home_Page_AA.dart';
+import 'Forgot_Password_Page.dart';
+import 'Home_Page_AA.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
 import 'Register_Page.dart';
