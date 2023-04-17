@@ -113,7 +113,12 @@ class _Home_Page_aState extends State<Home_Page_a> {
                       ),
               ],
             ),
-            // Text("mobile",style: TextStyle(fontSize: 12),),
+            InkWell(
+                onTap: (){
+
+                  Navigator.pushNamed(context, 'phone');
+                },
+                child: Text("Verify Mobile",style: TextStyle(fontSize: 15,color: Colors.red.shade900,),)),
 
           ],
         ),

@@ -130,42 +130,42 @@ class _MyVerifyState extends State<MyVerify> {
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async{
 
-                      // try{
-                      //   PhoneAuthCredential credential =
-                      //   PhoneAuthProvider.credential(verificationId: MyPhone.verify,
-                      //       smsCode: code);
-                      //
-                      //   // Sign the user in (or link) with the credential
-                      //   await auth.signInWithCredential(credential);
-                      //   Navigator.pushNamedAndRemoveUntil(context,
-                      //       "home", (route) => false);
-                      //
-                      // }
-                      // catch(e){
-                      //   print("wrong otp");
-                      //
-                      //
-                      // }
+                      try{
+                        PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(verificationId: MyPhone.verify,
+                            smsCode: code);
 
-                      PhoneAuthCredential credential =
-                      PhoneAuthProvider.credential(verificationId: MyPhone.verify,
-                          smsCode: code);
+                        // Sign the user in (or link) with the credential
+                        await auth.signInWithCredential(credential);
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            "Home_Page_a", (route) => false);
 
-                      // Sign the user in (or link) with the credential
-                      await auth.signInWithCredential(credential);
-
-                      //
-                      // user != null
-                      //     ? Navigator.push(
-                      //     context, MaterialPageRoute(builder: (context) => Home_Page_a()))
-                      //     : Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => LoginPage()));
+                      }
+                      catch(e){
+                        print("wrong otp");
 
 
+                      }
 
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          "Intro", (route) => false);
-                    },
+                    //   PhoneAuthCredential credential =
+                    //   PhoneAuthProvider.credential(verificationId: MyPhone.verify,
+                    //       smsCode: code);
+                    //
+                    //   // Sign the user in (or link) with the credential
+                    //   await auth.signInWithCredential(credential);
+                    //
+                    //   //
+                    //   // user != null
+                    //   //     ? Navigator.push(
+                    //   //     context, MaterialPageRoute(builder: (context) => Home_Page_a()))
+                    //   //     : Navigator.push(context,
+                    //   //     MaterialPageRoute(builder: (context) => LoginPage()));
+                    //
+                    //
+                    //   Navigator.pushNamed(context, 'Home_Page_a');
+                    //   // Navigator.pushNamedAndRemoveUntil(context,
+                    //   //     "Home_Page_a", (route) => false);
+                     },
                     child: Text("Verify Phone Number")),
               ),
               Row(
